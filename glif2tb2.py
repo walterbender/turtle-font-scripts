@@ -13,7 +13,8 @@ import re
 import sys
 
 XOFF = 200
-YOFF = 400
+YOFF = 350
+SCALE = 0.67
 
 def from_glif_to_tb(gliffile, tbfile):
     knotpoints = []
@@ -51,14 +52,10 @@ def from_glif_to_tb(gliffile, tbfile):
             # Write out savex, savey
             if first_point_is_a_curve:
                 # What are the control points for this curve?
-                print (":bezier %d %d" % (
-                    block_count, block_count - 5))
                 tbfd.write('[%d,["bezier",{}],0,0,[%d,%d,%d,null]],' % (
                     block_count, block_count - 5,
                     block_count + 1, block_count + 3))
             else:
-                print (":setxy %d %d" % (
-                    block_count, block_count - 5))
                 tbfd.write('[%d,["setxy",{}],0,0,[%d,%d,%d,null]],' % (
                     block_count, block_count - 5,
                     block_count + 1, block_count + 3))
@@ -75,13 +72,11 @@ def from_glif_to_tb(gliffile, tbfile):
         elif parts[0] == '<point':
             # It is either type line, type curve, or just a control point.
             # In every case we need the x, y values
-            x = int(parts[1][3:-1]) - XOFF
+            x = (int(parts[1][3:-1]) - XOFF) * SCALE
             if len(parts) == 3:
-                y = int(parts[2][3:-3]) - YOFF
+                y = (int(parts[2][3:-3]) - YOFF) * SCALE
                 # It is a control point, but which one?
                 if control_point == 0:
-                    print (".controlpoint1 %d %d" % (
-                        block_count, block_count - 5 + delta))
                     tbfd.write('[%d,["controlpoint1",{}],0,0,[%d,%d,%d,%d]],'\
                                % (block_count, block_count - 5 + delta,
                                   block_count + 1, block_count + 3,
@@ -99,8 +94,6 @@ def from_glif_to_tb(gliffile, tbfile):
                         % (
                         block_count + 4, len(controlpoint1s), block_count + 3))
                 else:
-                    print (".controlpoint2 %d %d" % (
-                        block_count, block_count - 5 + delta))
                     tbfd.write('[%d,["controlpoint2",{}],0,0,[%d,%d,%d,%d]],'\
                                % (block_count, block_count - 5 + delta,
                                   block_count + 1, block_count + 3,
@@ -124,30 +117,24 @@ def from_glif_to_tb(gliffile, tbfile):
                 control_point = 1 - control_point
                 block_count += 5
             else:
-                y = int(parts[2][3:-1]) - YOFF
+                y = (int(parts[2][3:-1]) - YOFF) * SCALE
                 if save_first_xy:
                     if parts[3] == 'type="curve"' or \
                        parts[3] == 'type="curve"/>':
                         first_point_is_a_curve = True
                     else:
                         first_point_is_a_curve = False
-                    print (">setxy %d %d" % (
-                        block_count, block_count - 1))
                     tbfd.write('[%d,["setxy",{}],0,0,[%d,%d,%d,%d]],' % (
                         block_count, block_count - 1,
                         block_count + 1, block_count + 3,
                         block_count + 5))
                 elif parts[3] == 'type="curve"' or \
                      parts[3] == 'type="curve"/>':
-                    print (".bezier %d %d" % (
-                        block_count, block_count - 5 + delta))
                     tbfd.write('[%d,["bezier",{}],0,0,[%d,%d,%d,%d]],' % (
                         block_count, block_count - 5 + delta,
                         block_count + 1, block_count + 3,
                         block_count + 5))
                 else:
-                    print (".setxy %d %d" % (
-                        block_count, block_count - 5 + delta))
                     tbfd.write('[%d,["setxy",{}],0,0,[%d,%d,%d,%d]],' % (
                         block_count, block_count - 5 + delta,
                         block_count + 1, block_count + 3,
@@ -178,7 +165,6 @@ def from_glif_to_tb(gliffile, tbfile):
                 delta = 4
             else:
                 delta = 0
-            print delta
 
     for i in range(len(knotpoints)):
         tbfd.write('[%d,["start",{}],0,0,[null,%d,null]],' % (
