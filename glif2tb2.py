@@ -169,15 +169,15 @@ def from_glif_to_tb(gliffile, tbfile):
     for i in range(len(knotpoints)):
         tbfd.write('[%d,["start",{}],0,0,[null,%d,null]],' % (
             block_count, block_count + 1))
-        tbfd.write('[%d,"setturtlename",0,0,[%d,%d,%d,%d]],' % (
-            block_count + 1, block_count, block_count + 2, block_count + 3,
+        tbfd.write('[%d,"vspace",0,0,[%d,%d]],' % (
+            block_count + 1, block_count, block_count + 2))
+        tbfd.write('[%d,"setturtlename2",0,0,[%d,%d,%d]],' % (
+            block_count + 2, block_count + 1, block_count + 3,
             block_count + 4))
-        tbfd.write('[%d,"turtlename",0,0,[%d]],' % (
-            block_count + 2, block_count + 1))
         tbfd.write('[%d,["text",{"value":"knotpoint%d"}],0,0,[%d]],' % (
-            block_count + 3, i, block_count + 1))
+            block_count + 3, i, block_count + 2))
         tbfd.write('[%d,"turtleshell",0,0,[%d,%d,%d,%d]],' % (
-            block_count + 4, block_count + 1, block_count + 5, block_count + 6,
+            block_count + 4, block_count + 2, block_count + 5, block_count + 6,
             block_count + 7))
         tbfd.write('[%d,["number",{"value":20}],0,0,[%d]],' % (
             block_count + 5, block_count + 4))
@@ -197,15 +197,15 @@ def from_glif_to_tb(gliffile, tbfile):
     for i in range(len(controlpoint1s)):
         tbfd.write('[%d,["start",{}],0,0,[null,%d,null]],' % (
             block_count, block_count + 1))
-        tbfd.write('[%d,"setturtlename",0,0,[%d,%d,%d,%d]],' % (
-            block_count + 1, block_count, block_count + 2, block_count + 3,
+        tbfd.write('[%d,"vspace",0,0,[%d,%d]],' % (
+            block_count + 1, block_count, block_count + 2))
+        tbfd.write('[%d,"setturtlename2",0,0,[%d,%d,%d]],' % (
+            block_count + 2, block_count + 1, block_count + 3,
             block_count + 4))
-        tbfd.write('[%d,"turtlename",0,0,[%d]],' % (
-            block_count + 2, block_count + 1))
         tbfd.write('[%d,["text",{"value":"controlpoint1%d"}],0,0,[%d]],' % (
-            block_count + 3, i, block_count + 1))
+            block_count + 3, i, block_count + 2))
         tbfd.write('[%d,"turtleshell",0,0,[%d,%d,%d,%d]],' % (
-            block_count + 4, block_count + 1, block_count + 5, block_count + 6,
+            block_count + 4, block_count + 2, block_count + 5, block_count + 6,
             block_count + 7))
         tbfd.write('[%d,["number",{"value":20}],0,0,[%d]],' % (
             block_count + 5, block_count + 4))
@@ -225,15 +225,15 @@ def from_glif_to_tb(gliffile, tbfile):
     for i in range(len(controlpoint2s)):
         tbfd.write('[%d,["start",{}],0,0,[null,%d,null]],' % (
             block_count, block_count + 1))
-        tbfd.write('[%d,"setturtlename",0,0,[%d,%d,%d,%d]],' % (
-            block_count + 1, block_count, block_count + 2, block_count + 3,
+        tbfd.write('[%d,"vspace",0,0,[%d,%d]],' % (
+            block_count + 1, block_count, block_count + 2))
+        tbfd.write('[%d,"setturtlename2",0,0,[%d,%d,%d]],' % (
+            block_count + 2, block_count + 1, block_count + 3,
             block_count + 4))
-        tbfd.write('[%d,"turtlename",0,0,[%d]],' % (
-            block_count + 2, block_count + 1))
         tbfd.write('[%d,["text",{"value":"controlpoint2%d"}],0,0,[%d]],' % (
-            block_count + 3, i, block_count + 1))
+            block_count + 3, i, block_count + 2))
         tbfd.write('[%d,"turtleshell",0,0,[%d,%d,%d,%d]],' % (
-            block_count + 4, block_count + 1, block_count + 5, block_count + 6,
+            block_count + 4, block_count + 2, block_count + 5, block_count + 6,
             block_count + 7))
         tbfd.write('[%d,["number",{"value":20}],0,0,[%d]],' % (
             block_count + 5, block_count + 4))
